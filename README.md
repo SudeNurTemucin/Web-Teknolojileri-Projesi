@@ -14,7 +14,7 @@ CV niteliğinde, eğitim bilgilerini içeren özgeçmiş sayfası olacak. <br/>
 Şehrim adında bir sayfa olacak ve bu sayfada memleketimize ya da sevdiğimiz şehre ait bilgiler yer alacak. <br/>
 Sayfanın başında ya da sonunda en az 4 resimden oluşan bir slider yer alacak.Resimlere tıklanıldığında resimlere ait içeriklerin linki olacak. <br/>
 Mirasımız linkli bir sayfa ile, şehre ait önemli eser ya da Takımımız linkli bir sayfada şehrin takımı tanıtılacak. <br/>
-İlgi alanlarım sayfasında, ilgi alanlarımız çerçevesinde API servisinden veri alınıp gösterilmelidir. <br/>
+İlgi alanlarım sayfasında, ilgi alanlarımız çerçevesinde API servisinden veri alınıp gösterilecek. <br/>
 Bir Login sayfası bulunacak. <br/>
 Form elemanlarını içeren bir İletişim sayfası bulunacak. <br/>
 İletişim formundaki gerekli kontrol işlemleri JavaScript ve popular bir js framework kullanılarak iki ayrı butonda ayrı ayrı denetlenecek. <br/>
