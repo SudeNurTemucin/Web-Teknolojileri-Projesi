@@ -16,6 +16,7 @@ Sayfanın başında ya da sonunda en az 4 resimden oluşan bir slider yer alacak
 Mirasımız linkli bir sayfa ile, şehre ait önemli eser ya da Takımımız linkli bir sayfada şehrin takımı tanıtılacak. <br/>
 İlgi alanlarım sayfasında, ilgi alanlarımız çerçevesinde API servisinden veri alınıp gösterilecek. <br/>
 Bir Login sayfası bulunacak. <br/>
+Mail ve şifre doğrulanırsa "Hoşgeldiniz" mesajı verececek.Doğrulanmazsa giriş sayfasına geri yönlendirilecek. <br/> 
 Form elemanlarını içeren bir İletişim sayfası bulunacak. <br/>
 İletişim formundaki gerekli kontrol işlemleri JavaScript ve popular bir js framework kullanılarak iki ayrı butonda ayrı ayrı denetlenecek. <br/>
 Form temizle ve gönder butonları içerecek. <br/>
