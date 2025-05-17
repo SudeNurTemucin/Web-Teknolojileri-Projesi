@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Giriş" />
+    <meta name="keywords" content="İletişim" />
+    <meta name="author" content="Sude Nur Temuçin" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>İletişim Formu</title>
+  <!--Vue-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@3" defer></script>
+   <!--JAVASCRİPT-->
+      <script src="js/javaScript.js" defer></script>
+      <!--FONT AWESOME İKONLAR-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+
+    <!--CSS-->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!--BOOTSTRAP-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+      crossorigin="anonymous"/>
+  
+</head>
+<body>
+
+ <header>İletişim Sayfası</header>
+
+    <nav>
+      <div class="container-fluid">
+        <div class="row" id="menu">
+          <div class="col">
+            <a href="index.html">
+              <i class="fa-solid fa-house-chimney"></i> Hakkımda
+            </a>
+          </div>
+          <div class="col">
+            <a href="özgeçmiş.html">
+              <i class="fa-solid fa-id-card"></i> Özgeçmiş
+            </a>
+          </div>
+          <div class="col">
+            <a href="şehrim.html">
+              <i class="fa-solid fa-tree-city"></i> Şehrim
+            </a>
+          </div>
+          <div class="col">
+            <a href="mirasımız.html">
+              <i class="fa-solid fa-landmark"></i> Mirasımız
+            </a>
+          </div>
+          <div class="col">
+            <a href="ilgiAlanlarım.html">
+              <i class="fa-solid fa-icons"></i> İlgi Alanlarım
+            </a>
+          </div>
+          <div class="col">
+            <a href="#" id="active">
+              <i class="fa-solid fa-envelope"></i> İletişim
+            </a>
+          </div>
+          <div class="col">
+            <a href="giriş.html" >
+              <i class="fa-solid fa-right-to-bracket"></i> Giriş
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <br/><br/>
+
+
+  <!-- Vue uygulamasına ait kapsayıcı -->
+  <div class="container mt-5" id="vueApp">
+    <h1 class="mb-4">İletişim Formu</h1>
+    
+    <!-- form. novalidate ile html içi doğrulamaların devre dışı bırakılması sağlanır -->
+    <form id="contactForm" action="iletişim.php" method="POST" enctype="multipart/form-data" novalidate    onsubmit="return validateFormJS() && validateFormVue();">
+      
+      <!-- Text: Adınız -->
+      <div class="mb-3">
+        <label for="name" class="form-label">Adınız</label>
+        <input type="text" class="form-control" id="name" name="name" v-model="name" placeholder="Adınızı giriniz">
+         <small class="text-danger" id="error-name">{{ hataMesaji.name }}</small>
+      </div>
+      
+    <!-- Text: Soyadınız -->
+      <div class="mb-3">
+        <label for="surname" class="form-label">Soyadınız</label>
+        <input type="text" class="form-control" id="surname" name="surname" v-model="surname" placeholder="Soyadınızı giriniz">
+         <small class="text-danger" id="error-surname">{{ hataMesaji.surname }}</small>
+      </div>
+
+       <!-- Radio Buttons: Cinsiyet -->
+      <fieldset class="mb-3">
+        <legend>Cinsiyet</legend>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="cinsiyet" id="erkek" value="Erkek" v-model="cinsiyet">
+          <label class="form-check-label" for="erkek">Erkek</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="cinsiyet" id="kadin" value="Kadın" v-model="cinsiyet">
+          <label class="form-check-label" for="kadin">Kadın</label>
+          <small class="text-danger" id="error-cinsiyet">{{ hataMesaji.cinsiyet }}</small>
+        </div>
+      </fieldset>
+
+      <!-- Password: Şifre -->
+      <div class="mb-3">
+        <label for="password" class="form-label">Şifre</label>
+        <input type="password" class="form-control" id="password" name="password" v-model="password" placeholder="Şifrenizi giriniz">
+             <small class="text-danger" id="error-password">{{ hataMesaji.password }}</small>
+      </div>
+      
+      <!-- Email -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email" v-model="email" placeholder="E-mail adresinizi giriniz">
+           <small class="text-danger" id="error-email">{{ hataMesaji.email }}</small>
+      </div>
+      
+      <!-- Telefon (yalnızca rakam kontrolü yapılacaktır) -->
+      <div class="mb-3">
+        <label for="telefon" class="form-label">Telefon</label>
+        <input type="text" class="form-control" id="telefon" name="telefon" v-model="telefon" placeholder="Telefon numaranızı giriniz">
+         <small class="text-danger" id="error-telefon">{{ hataMesaji.telefon }}</small>
+      </div>
+      
+      <!-- File: Dosya seçimi (multiple özellikli) -->
+      <div class="mb-3">
+        <label for="dosya" class="form-label">Dosya seçiniz</label>
+        <input type="file" class="form-control" id="dosya" name="dosya[]" multiple>
+      </div>
+      
+      
+       <!-- Multiple Select: Soru Aciliyeti-->
+     <div class="mb-3">
+        <label for="aciliyet" class="form-label">Sorunun Aciliyeti</label>
+        <select class="form-select" id="aciliyet" name="aciliyet" >
+           <option value="">-- Seçiniz --</option>
+          <option value="acil">Acil</option>
+          <option value="cok-onemli">Çok Önemli</option>
+          <option value="normal">Normal</option>
+          <option value="dusuk-oncelik">Düşük Öncelik</option>
+        </select>
+          <small class="text-danger" id="error-aciliyet">{{ hataMesaji.aciliyet }}</small>
+      </div> 
+       
+       <!-- List (datalist) ile: Konu Seçimi -->
+      <div class="mb-3">
+      <label for="konu">Sorunun Konusu:</label>
+      <input list="konular" id="konu" name="konu" class="form-control" placeholder="Bir konu seçin...">
+      <datalist id="konular">
+      <option value="Öneri">
+      <option value="Şikayet">
+      <option value="Bilgi İsteği">
+      <option value="Teknik Destek">
+      <option value="Hesap Sorunu">
+      <option value="Yeni Özellik Talebi">
+      <option value="Diğer">
+      </datalist>
+            <small class="text-danger" id="error-konu">{{ hataMesaji.konu }}</small>
+      </div> 
+      
+      <!-- Textarea: Mesaj -->
+      <div class="mb-3">
+        <label for="mesaj" class="form-label">Mesajınız</label>
+        <textarea class="form-control" id="mesaj" name="mesaj" rows="3" v-model="mesaj"></textarea>
+          <small class="text-danger" id="error-mesaj">{{ hataMesaji.mesaj }}</small>
+      </div>
+      
+    <!--Checkbox-->
+      <div class="mb-3 form-control">
+      <input type="checkbox"
+         id="sozlesme"
+         name="sozlesme"
+         required>
+       <label class="form-label" for="sozlesme">
+      Kullanıcı sözleşmesini kabul ediyorum.
+     </label>
+        <small class="text-danger" id="error-sozlesme">{{ hataMesaji.sozlesme }}</small>
+    </div> 
+  
+      <!-- İki farklı doğrulama butonu -->
+     <div class="mb-3">
+        <button type="button"  class="btn btn-info me-2" onclick="validateFormJS()">JS ile Denetle</button>
+        <button type="button"  class="btn btn-warning me-2" @click="validateFormVue()">Vue ile Denetle</button>
+        <button type="reset" class="btn btn-danger me-2" @click="clearErrors()">Temizle</button>
+        <button type="submit" class="btn btn-success">Gönder</button>
+      </div>
+    </form>
+  </div>
+  
+ <footer>
+      Mayıs &copy; 2025 | Tüm Hakları Saklıdır | Website designed by Sude Nur Temuçin
+    </footer>
+
+    <!--JAVASCRİPT-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+      crossorigin="anonymous"></script>
+
+       <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.min.js"
+      integrity="sha384-VQqxDN0EQCkWoxt/0vsQvZswzTHUVOImccYmSyhJTp7kGtPed0Qcx8rK9h9YEgx+"
+      crossorigin="anonymous"
+    ></script>
+
+</body>
+</html>
+   
